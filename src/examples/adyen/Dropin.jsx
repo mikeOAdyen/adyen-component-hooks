@@ -1,10 +1,12 @@
 import React from 'react';
+import { Checkout } from './Checkout';
 import { useGetPaymentOpts } from '../../hooks';
 
-const requestBody = {
-  
-}
+export const Dropin = ({ baseConfig }) => {
+  const [ paymentMethods ] = useGetPaymentOpts(baseConfig);
 
-export const Dropin = () => {
-  const [ paymentMethods ] = useGetPaymentOpts();
+  if (paymentMethods) {
+    return <Checkout type="dropin" paymentMethods={paymentMethods} baseConfig={baseConfig} />
+  }
+  return <div></div>
 };
