@@ -8,7 +8,7 @@ const baseConfig = {
   countryCode: "NL",
   amount: {
     currency: "EUR",
-    amount: 50
+    amount: 500
   },
   channel: "Web",
   merchantAccount: MERCHANT_ACCOUNT,
