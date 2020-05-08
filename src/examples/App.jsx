@@ -2,15 +2,16 @@ import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import Header from './Header';
 import { Dropin } from './adyen/Dropin';
+import { MERCHANT_ACCOUNT } from '../config';
 
 const baseConfig = {
-  countryCode: "US",
+  countryCode: "NL",
   amount: {
-    currency: "USD",
+    currency: "EUR",
     amount: 50
   },
   channel: "Web",
-  shopperLocale: "en-US",
+  merchantAccount: MERCHANT_ACCOUNT,
   returnUrl:"http://localhost:3000/checkout",
   reference: `reference${Math.floor(Math.random() * 10000000)}`
 };
