@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkout } from './Checkout';
-import { useGetPaymentOpts } from '../../hooks';
+import { useGetPaymentOpts } from '../../../hooks';
 
 export const Dropin = ({ baseConfig }) => {
   const [ paymentMethods ] = useGetPaymentOpts(baseConfig);

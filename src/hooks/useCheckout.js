@@ -3,7 +3,7 @@ import { ORIGIN_KEY, USER_LOCALE, ENVIRONMENT } from '../config';
 import { initiatePayment, submitAdditionalDetails } from '../requests';
 
 export const useCheckout = (paymentMethodsResponse, baseConfig, loaded) => {
-  const [ checkout, setCheckout ] = useState(null);
+  const [checkout, setCheckout] = useState(null);
 
   useEffect(() => {
 
@@ -28,8 +28,8 @@ export const useCheckout = (paymentMethodsResponse, baseConfig, loaded) => {
         onSubmit,
         onAdditionalDetails
       });
-      setCheckout(component)
-    };
+      setCheckout(component);
+    }
 
   }, [paymentMethodsResponse, loaded, baseConfig]);
 

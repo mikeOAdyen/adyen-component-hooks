@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCheckout, useCheckoutScript } from '../../hooks';
+import { useCheckout, useCheckoutScript } from '../../../hooks';
 import '../../styles/Checkout.css';
 
 export const Checkout = ({ type, baseConfig, paymentMethods }) => {
