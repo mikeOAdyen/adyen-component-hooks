@@ -3,10 +3,10 @@ import { Route, withRouter } from 'react-router-dom';
 import { Header } from './Header';
 import { Dropin } from './adyen/Dropin';
 import { Success } from './adyen/Success';
-import { MERCHANT_ACCOUNT } from '../../config';
 
 const App = props => {
   const [success, setSuccess] = useState(null);
+  console.log('app render');
     return (
       <div id="app">
         <Header />

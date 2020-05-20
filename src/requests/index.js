@@ -4,10 +4,11 @@ export const initiatePayment = async (data) => {
   try {
     const response = await fetch(`${API_BASE_URL}/payments/initiatePayment`, {
       method: 'POST',
-      body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
+      credentials: 'same-origin',
+      body: JSON.stringify(data)
     });
 
     return await response.json();
@@ -21,8 +22,9 @@ export const getPaymentMethods = async (data) => {
     const response = await fetch(`${API_BASE_URL}/payments/getPaymentMethods`, {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json',
+        'Content-type': 'application/json'
       },
+      credentials: 'same-origin',
       body: JSON.stringify(data),
     });
 
@@ -40,7 +42,7 @@ export const submitAdditionalDetails = async (data) => {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
       }
     );

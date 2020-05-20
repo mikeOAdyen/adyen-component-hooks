@@ -6,11 +6,11 @@ import '../../styles/Checkout.css';
 
 export const Checkout = ({ type }) => {
   const [loaded] = useCheckoutScript();
-  const [paymentData, checkout] = useCheckout(loaded);
+  const [result, component, checkout] = useCheckout(loaded);
   const [modal, setModal] = useState(true);
   const [rendered, setRendered] = useState(false);
   
-  // const toggle = () => setModal(!modal);
+  const toggle = () => setModal(!modal);
 
   if(checkout && !rendered) {
     checkout.create(type).mount('#checkout');
@@ -18,14 +18,12 @@ export const Checkout = ({ type }) => {
   }
   // let redirectModal;
 
-  console.log(paymentData);
-
-  // if(action && action.type === 'redirect') {
+  // if(result && result.action && result.action.type === 'redirect') {
   //   redirectModal = (
   //     <Modal isOpen={modal} toggle={toggle} size={'lg'} className="iframe-modal">
   //       <ModalBody>
   //         <Iframe
-  //           url={action.url}
+  //           url={result.action.url}
   //           width="100%"
   //           height="500px"
   //         ></Iframe>

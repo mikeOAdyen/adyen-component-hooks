@@ -1,25 +1,28 @@
 import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import { ORIGIN_KEY, USER_LOCALE, ENVIRONMENT } from '../config';
 import { initiatePayment, getPaymentMethods, submitAdditionalDetails } from '../requests';
 
 export const useCheckout = (loaded) => {
-  const [paymentData, setPaymentData] = useState(null);
+  const [result, setResult] = useState(null);
   const [checkout, setCheckout] = useState(null);
+  const [component, setComponent] = useState(null);
 
   useEffect(() => {
-    const onAdditionalDetails = async (state, component) => {
+    const onAdditionalDetails = async (state, checkout) => {
+      console.log('on additional', state);
       const result = await submitAdditionalDetails(state.data);
-      console.log('on additional', result);
     };
 
-    const onSubmit = async (state, component) => {
+    const onSubmit = async (state, checkout) => {
       if(state.isValid) {
-        const result = await initiatePayment({...state.data});
-        console.log('submit result', result);
-        setPaymentData(result.paymentData);
-        return result.action
-          ? await component.handleAction(result.action)
-          : component;
+        const result = await initiatePayment({...state.data, origin: window.location.origin});
+        console.log(result);
+        if (result.action) {
+          Cookies.set('paymentData', result.action.paymentData);
+          checkout.handleAction(result.action);
+        }
+        setCheckout(checkout);
       }
     };
 
@@ -41,5 +44,5 @@ export const useCheckout = (loaded) => {
     getPaymentMethodsAndInitialize()
   }, [loaded]);
 
-  return [paymentData, checkout];
+  return [result, component, checkout];
 };
