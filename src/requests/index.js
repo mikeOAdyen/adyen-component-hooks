@@ -1,42 +1,51 @@
 const { API_BASE_URL } = require('../config');
 
-export const initiatePayment = async data => {
+export const initiatePayment = async (data) => {
   try {
-    return await fetch(`${API_BASE_URL}/api/initiatePayment`, {
-      method: "POST",
+    const response = await fetch(`${API_BASE_URL}/payments/initiatePayment`, {
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json"
-      }
-    })
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return await response.json();
   } catch (err) {
     console.error('Failed to initiate payment', err);
   }
 };
 
-export const getPaymentMethods = async data => {
+export const getPaymentMethods = async (data) => {
   try {
-    return await fetch(`${API_BASE_URL}/api/getPaymentMethods`, {
+    const response = await fetch(`${API_BASE_URL}/payments/getPaymentMethods`, {
       method: 'POST',
       headers: {
-        'Content-type':'application/json'
+        'Content-type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
+
+    return await response.json();
   } catch (err) {
     console.error('Failed to get payment methods', err);
   }
-}
+};
 
-export const submitAdditionalDetails = async data => {
+export const submitAdditionalDetails = async (data) => {
   try {
-    return await fetch(`${API_BASE_URL}/api/submitAdditionalDetails`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
+    const response = await fetch(
+      `${API_BASE_URL}/payments/submitAdditionalDetails`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
-    });
+    );
+
+    return await response.json();
   } catch (err) {
     console.error('Failed to get submit additional details', err);
   }
@@ -44,7 +53,8 @@ export const submitAdditionalDetails = async data => {
 
 export const getAdyenConfig = async () => {
   try {
-    return await fetch(`${API_BASE_URL}/api/config`);
+    const response = await fetch(`${API_BASE_URL}/payments/config`);
+    return await response.json();
   } catch (err) {
     console.error('Failed to get config', err);
   }

@@ -1,37 +1,45 @@
 import { useState, useEffect } from 'react';
 import { ORIGIN_KEY, USER_LOCALE, ENVIRONMENT } from '../config';
-import { initiatePayment, submitAdditionalDetails } from '../requests';
+import { initiatePayment, getPaymentMethods, submitAdditionalDetails } from '../requests';
 
-export const useCheckout = (paymentMethodsResponse, baseConfig, loaded) => {
+export const useCheckout = (loaded) => {
+  const [paymentData, setPaymentData] = useState(null);
   const [checkout, setCheckout] = useState(null);
 
   useEffect(() => {
-
     const onAdditionalDetails = async (state, component) => {
-      const response = await submitAdditionalDetails(state.data);
-      const result = await response.json();
-      console.log(result);
+      const result = await submitAdditionalDetails(state.data);
+      console.log('on additional', result);
     };
 
     const onSubmit = async (state, component) => {
-      const response = await initiatePayment({...state.data, ...baseConfig});
-      const result = await response.json();
-      console.log(result);
+      if(state.isValid) {
+        const result = await initiatePayment({...state.data});
+        console.log('submit result', result);
+        setPaymentData(result.paymentData);
+        return result.action
+          ? await component.handleAction(result.action)
+          : component;
+      }
     };
 
-    if (loaded) {
-      const component = new window.AdyenCheckout({
-        originKey: ORIGIN_KEY,
-        locale: USER_LOCALE,
-        environment: ENVIRONMENT,
-        paymentMethodsResponse,
-        onSubmit,
-        onAdditionalDetails
-      });
-      setCheckout(component);
-    }
+    const getPaymentMethodsAndInitialize = async () => {
+      const paymentMethodsResponse = await getPaymentMethods();
+      if (paymentMethodsResponse && loaded) {
+        const checkout = new window.AdyenCheckout({
+          originKey: ORIGIN_KEY,
+          locale: USER_LOCALE,
+          environment: ENVIRONMENT,
+          paymentMethodsResponse,
+          onSubmit,
+          onAdditionalDetails
+        });
+        setCheckout(checkout);
+      }
+    };
+      
+    getPaymentMethodsAndInitialize()
+  }, [loaded]);
 
-  }, [paymentMethodsResponse, loaded, baseConfig]);
-
-  return [checkout];
+  return [paymentData, checkout];
 };

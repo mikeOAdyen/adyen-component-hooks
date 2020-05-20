@@ -14,7 +14,7 @@ import {
 import Logo from '../assets/adyen-logo.png';
 import '../styles/Header.css';
 
-const Header = () => {
+export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -51,5 +51,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;

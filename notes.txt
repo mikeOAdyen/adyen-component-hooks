@@ -1,1 +1,24 @@
-ws_556420@Company.AdyenTechSupport
+4 Payment flows:
+
+Authorized
+
+3DS2 Native component flow:
+  on additional details trigger -> render to div
+  when using card or dropin, it is technically the schemes website rendered in and iframe on your page
+
+2 Redirect flows dependant on payment method:
+
+  POST:
+    need to fetch payment data from initial API call
+    submit call, get redirect, send shopper, they finish payment then redirected to returnUrl
+    then fetch payment data info initially received in the payments response, include that in a payments details call
+    data must persist throughout redirect
+
+  GET:
+    Local payment methods
+    Get redirect to returnURL you have payload and redirect result encoded as query parameters
+    pull out the payload and redirect results from the query and also have to fetch payment data
+    then makes paymentDetails call
+    shopper redirected based on success or failure
+
+3DS1: paRes, MD, paymentData needed for payment details call

@@ -7,8 +7,7 @@ export const useGetPaymentOpts = (reqData) => {
   useEffect(() => {
     const getPaymentOpts = async () => {
       try {
-        const response = await getPaymentMethods(reqData);
-        const paymentResponse = await response.json();
+        const paymentResponse = await getPaymentMethods(reqData);
         setPaymentMethods(paymentResponse);
       } catch (err) {
         console.error('error retrieving payment options', err);
