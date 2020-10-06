@@ -1,0 +1,26 @@
+{
+    "live": "false",
+    "notificationItems": [
+        {
+            "NotificationRequestItem": {
+                "additionalData": {
+                    "expiryDate": "03/2030",
+                    "cardSummary": "5841",
+                    "cardHolderName": "John Smith"
+                },
+                "amount": {
+                    "currency": "USD",
+                    "value": 1500
+                },
+                "eventCode": "AUTHORISATION",
+                "eventDate": "2020-09-03T17:40:28+02:00",
+                "merchantAccountCode": "MikeOssig",
+                "merchantReference": "JCB_3DS2_FIX",
+                "paymentMethod": "jcb",
+                "pspReference": "881599147613121D",
+                "reason": "905 Payment details are not supported",
+                "success": "false"
+            }
+        }
+    ]
+}

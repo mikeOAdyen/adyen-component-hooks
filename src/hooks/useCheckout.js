@@ -9,9 +9,9 @@ export const useCheckout = (loaded) => {
   const [component, setComponent] = useState(null);
 
   useEffect(() => {
-    const onAdditionalDetails = async (state, checkout) => {
+    const onAdditionalDetails = async (state) => {
       console.log('on additional', state);
-      const result = await submitAdditionalDetails(state.data);
+      setResult(await submitAdditionalDetails(state.data));
     };
 
     const onSubmit = async (state, checkout) => {
@@ -41,7 +41,7 @@ export const useCheckout = (loaded) => {
       }
     };
       
-    getPaymentMethodsAndInitialize()
+    getPaymentMethodsAndInitialize();
   }, [loaded]);
 
   return [result, component, checkout];
